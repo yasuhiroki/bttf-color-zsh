@@ -2,6 +2,8 @@
 
 BTTF ZSH prompt color theme
 
+![ScreenShot](./screenshot.png "ScreenShot")
+
 # Install
 
 ## zplug
