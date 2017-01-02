@@ -6,5 +6,5 @@ BTTF ZSH prompt color theme
 
 ## zplug
 
-`zplug 'yasuhiroki/bttf-color-zsh'``
+`zplug 'yasuhiroki/bttf-color-zsh'`
 
