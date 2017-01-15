@@ -58,6 +58,18 @@ function bttf:precmd() {
     vcs_info
 }
 
+function bttf:destination_time() {
+    echo -n "%F{${bttf_color_timecircuit_1}}[$(date +%H:%M:%S)]"
+}
+
+function bttf:present_time() {
+    echo -n "%F{${bttf_color_timecircuit_2}}[$(date +%H:%M:%S)]"
+}
+
+function bttf:last_time_departed() {
+    echo -n "%F{${bttf_color_timecircuit_3}}[$(date +%H:%M:%S)]"
+}
+
 function bttf:prompt_render() {
     bttf:prompt_user
     echo -n '@'
@@ -86,7 +98,7 @@ function bttf:prompt_dir() {
 }
 
 function bttf:prompt_git() {
-    echo -n "${vcs_info_msg_0_}"
+    echo -n "${vcs_info_msg_0_}$(bttf:present_time)"
 }
 
 function bttf:theme() {
