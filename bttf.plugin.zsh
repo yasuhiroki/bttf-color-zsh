@@ -1,8 +1,11 @@
 function bttf:log() {
-    echo "[bttf:log]$@"
+    local prefix="${2:+${1}}"
+    local msg="${2:-${1}}"
+    echo "[bttf:log]${prefix}: ${msg}"
 }
+
 function bttf:log:error() {
-    bttf:log "[error] $@"
+    bttf:log "[error]" "$@"
 }
 
 function bttf:check() {
@@ -110,4 +113,3 @@ function bttf:theme() {
 }
 
 bttf:theme
-
