@@ -1,14 +1,14 @@
-function bttf:log() {
-    local prefix="${2:+${1}}"
-    local msg="${2:-${1}}"
-    echo "[bttf:log]${prefix}: ${msg}"
+function bttf::log() {
+    local prefix="${2::+${1}}"
+    local msg="${2::-${1}}"
+    echo "[bttf::log]${prefix}:: ${msg}"
 }
 
-function bttf:log:error() {
-    bttf:log "[error]" "$@"
+function bttf::log::error() {
+    bttf::log "[error]" "$@"
 }
 
-function bttf:check() {
+function bttf::check() {
     autoload -Uz is-at-least
     if ! is-at-least 4.3.7; then
         bttf:log:error "Not support zsh version"
@@ -21,15 +21,16 @@ function bttf:check() {
     fi
 }
 
-function bttf:init() {
-    bttf:check || return 0
-    bttf:init:color
-    bttf:init:vcs_info
 
-    precmd_functions+=(bttf:precmd)
+function bttf::init() {
+    bttf::check || return 0
+    bttf::init::color
+    bttf::init::vcs_info
+
+    precmd_functions+=(bttf::precmd)
 }
 
-function bttf:init:color() {
+function bttf::init::color() {
     bttf_color_red=160
     bttf_color_green=046
     bttf_color_yellow=226
@@ -49,7 +50,7 @@ function bttf:init:color() {
     default_prompt_git_color=${bttf_color_timecircuit_2}
 }
 
-function bttf:init:vcs_info() {
+function bttf::init::vcs_info() {
     autoload -Uz vcs_info
     zstyle ':vcs_info:*' enable git
     zstyle ':vcs_info:git:*' check-for-changes true
@@ -57,34 +58,34 @@ function bttf:init:vcs_info() {
     zstyle ':vcs_info:git:*' actionformats "%F{${default_prompt_git_color}}[%b(%a)]%f"
 }
 
-function bttf:precmd() {
+function bttf::precmd() {
     vcs_info
 }
 
-function bttf:destination_time() {
+function bttf::destination_time() {
     echo -n "%F{${bttf_color_timecircuit_1}}[$(date +%H:%M:%S)]"
 }
 
-function bttf:present_time() {
+function bttf::present_time() {
     echo -n "%F{${bttf_color_timecircuit_2}}[$(date +%H:%M:%S)]"
 }
 
-function bttf:last_time_departed() {
+function bttf::last_time_departed() {
     echo -n "%F{${bttf_color_timecircuit_3}}[$(date +%H:%M:%S)]"
 }
 
-function bttf:prompt_render() {
-    bttf:prompt_user
+function bttf::prompt_render() {
+    bttf::prompt_user
     echo -n '@'
-    bttf:prompt_dir
-    echo -n "$(bttf:prompt_symbol)"
+    bttf::prompt_dir
+    echo -n "$(bttf::prompt_symbol)"
 }
 
-function bttf:rprompt_render() {
-    bttf:prompt_git
+function bttf::rprompt_render() {
+    bttf::prompt_git
 }
 
-function bttf:prompt_symbol() {
+function bttf::prompt_symbol() {
   if [ $UID -eq 0 ]; then
     echo -n '#'
   else
@@ -92,24 +93,24 @@ function bttf:prompt_symbol() {
   fi
 }
 
-function bttf:prompt_user() {
+function bttf::prompt_user() {
     echo -n "%F{${default_prompt_user_color}}%n%f"
 }
 
-function bttf:prompt_dir() {
+function bttf::prompt_dir() {
     echo -n "%F{${default_prompt_dir_color}}%1d%f"
 }
 
-function bttf:prompt_git() {
-    echo -n "${vcs_info_msg_0_}$(bttf:present_time)"
+function bttf::prompt_git() {
+    echo -n "${vcs_info_msg_0_}$(bttf::present_time)"
 }
 
-function bttf:theme() {
-    bttf:init
+function bttf::theme() {
+    bttf::init
 
     setopt prompt_subst
-    PROMPT='$(bttf:prompt_render) '
-    RPROMPT='$(bttf:rprompt_render)'
+    PROMPT='$(bttf::prompt_render) '
+    RPROMPT='$(bttf::rprompt_render)'
 }
 
-bttf:theme
+bttf::theme
