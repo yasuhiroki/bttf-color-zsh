@@ -9,17 +9,17 @@ function bttf:check() {
     autoload -Uz is-at-least
     if ! is-at-least 4.3.7; then
         bttf:log:error "Not support zsh version"
-        exit 1
+        return 1
     fi
 
     if [[ "$TERM" != *"256color" ]]; then
         bttf:log:error "Not support color"
-        exit 1
+        return 1
     fi
 }
 
 function bttf:init() {
-    bttf:check
+    bttf:check || return 0
     bttf:init:color
     bttf:init:vcs_info
 
