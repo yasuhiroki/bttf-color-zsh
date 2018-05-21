@@ -75,10 +75,11 @@ function bttf::last_time_departed() {
 }
 
 function bttf::prompt_render() {
-    bttf::prompt_user
-    echo -n '@'
-    bttf::prompt_dir
-    echo -n "$(bttf::prompt_symbol)"
+    local r="$(bttf::rprompt_render)"
+    local l="$(bttf::prompt_user)@$(bttf::prompt_dir)"
+    printf "%s%*s\n$" "$l" \
+                       "$COLUMNS + 2" \
+                       "$r"
 }
 
 function bttf::rprompt_render() {
@@ -108,7 +109,7 @@ function bttf::prompt_dir() {
 }
 
 function bttf::prompt_git() {
-    echo -n "${vcs_info_msg_0_}$(bttf::present_time)"
+    echo -n "${vcs_info_msg_0_}$(bttf::present_time)%f"
 }
 
 function bttf::theme() {
@@ -116,7 +117,7 @@ function bttf::theme() {
 
     setopt prompt_subst
     PROMPT='$(bttf::prompt_render) '
-    RPROMPT='$(bttf::rprompt_render)'
+    RPROMPT=''
 }
 
 bttf::theme
