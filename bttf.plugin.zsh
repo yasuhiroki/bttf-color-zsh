@@ -82,6 +82,12 @@ function bttf::prompt_render() {
 }
 
 function bttf::rprompt_render() {
+    local last_rtn="$?"
+    if [ ${last_rtn} = "0" ]; then
+        echo -n "%F{${bttf_color_timecircuit_3}}(${last_rtn})%f"
+    else
+        echo -n "%F{${bttf_color_timecircuit_1}}(${last_rtn})%f"
+    fi
     bttf::prompt_git
 }
 
