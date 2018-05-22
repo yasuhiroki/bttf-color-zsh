@@ -77,9 +77,10 @@ function bttf::last_time_departed() {
 function bttf::prompt_render() {
     local r="$(bttf::rprompt_render)"
     local l="$(bttf::prompt_user)@$(bttf::prompt_dir)"
-    printf "%s%*s\n$" "$l" \
-                       "$COLUMNS + 2" \
-                       "$r"
+    local invisible='%([BSUbfksu]|([FK]|){*})'
+    local r_w=${#${(S%%)r//$~invisible/}}
+    local l_w=${#${(S%%)l//$~invisible/}}
+    printf "%s%*s%s\n$" "$l" "$((COLUMNS - r_w - l_w))" " " "$r"
 }
 
 function bttf::rprompt_render() {
