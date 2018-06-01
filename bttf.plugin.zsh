@@ -80,7 +80,12 @@ function bttf::prompt_render() {
     local invisible='%([BSUbfksu]|([FK]|){*})'
     local r_w=${#${(S%%)r//$~invisible/}}
     local l_w=${#${(S%%)l//$~invisible/}}
-    printf "%s%*s%s\n$" "$l" "$((COLUMNS - r_w - l_w))" " " "$r"
+    local w=$((COLUMNS - r_w - l_w))
+    if ((w < 1)); then
+        printf "%s\n%*s%s\n$" "$l" "$((COLUMNS - r_w))" " " "$r"
+    else
+        printf "%s%*s%s\n$" "$l" "$w" " " "$r"
+    fi
 }
 
 function bttf::rprompt_render() {
