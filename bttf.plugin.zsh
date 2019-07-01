@@ -78,8 +78,8 @@ function bttf::prompt_render() {
     local r="$(bttf::rprompt_render)"
     local l="$(bttf::prompt_user)@$(bttf::prompt_dir)"
     local invisible='%([BSUbfksu]|([FK]|){*})'
-    local r_w=${#${(S%%)r//$~invisible/}}
-    local l_w=${#${(S%%)l//$~invisible/}}
+    local r_w=${(m)#${(S%%)r//$~invisible/}}
+    local l_w=${(m)#${(S%%)l//$~invisible/}}
     local w=$((COLUMNS - r_w - l_w))
     if ((w < 1)); then
         printf "%s\n%*s%s\n$" "$l" "$((COLUMNS - r_w))" " " "$r"
