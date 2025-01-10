@@ -15,7 +15,7 @@ function bttf::check() {
         return 1
     fi
 
-    if [[ "$TERM" != *"256color" ]]; then
+    if [[ "$(tput colors)" != "256" ]]; then
         bttf::log::error "Not support color"
         return 1
     fi
