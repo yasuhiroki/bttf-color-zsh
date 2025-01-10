@@ -11,12 +11,12 @@ function bttf::log::error() {
 function bttf::check() {
     autoload -Uz is-at-least
     if ! is-at-least 4.3.7; then
-        bttf:log:error "Not support zsh version"
+        bttf::log::error "Not support zsh version"
         return 1
     fi
 
     if [[ "$TERM" != *"256color" ]]; then
-        bttf:log:error "Not support color"
+        bttf::log::error "Not support color"
         return 1
     fi
 }
