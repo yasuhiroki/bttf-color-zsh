@@ -1,6 +1,6 @@
 function bttf::log() {
-    local prefix="${2::+${1}}"
-    local msg="${2::-${1}}"
+    local prefix="${2:+${1}}"
+    local msg="${2:-${1}}"
     echo "[bttf::log]${prefix}:: ${msg}"
 }
 
