@@ -111,7 +111,7 @@ function bttf::prompt_user() {
 }
 
 function bttf::prompt_dir() {
-    echo -n "%F{${default_prompt_dir_color}}%1d%f"
+    echo -n "%F{${default_prompt_dir_color}}%~%f"
 }
 
 function bttf::prompt_git() {
